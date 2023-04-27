@@ -1,7 +1,11 @@
 import "./styles.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
@@ -21,14 +25,19 @@ export default function App() {
     return (
       sections &&
       sections.map((s, i) => (
-        <Card className="card" key={i}>
-          <CardContent>
-            <h2>
+        <Accordion key={i}>
+          <AccordionSummary
+            style={{ "background-color": s.isSatisfied ? "green" : "gray" }}
+            expandIcon={<ExpandMoreIcon />}
+          >
+            <Typography>
               {s.name} : {s.isSatisfied ? "DONE" : "OPEN"}
-            </h2>
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
             {showEnquiryLines(s.enquiryLines)}
-          </CardContent>
-        </Card>
+          </AccordionDetails>
+        </Accordion>
       ))
     );
   };
@@ -219,8 +228,8 @@ export default function App() {
         answers: {
           DE_DUP_IND: "With client ID",
           ROLE_IND: "Life Assured",
-          NATIONALITY: "HK"
-        }
+          NATIONALITY: "HK",
+        },
       };
       updateAnswer(initData);
     }
