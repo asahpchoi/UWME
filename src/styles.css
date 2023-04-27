@@ -1,0 +1,36 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: flex;
+}
+
+.error {
+  color: red;
+}
+
+.question {
+  margin: 1em;
+  text-align: left;
+}
+
+#left {
+  width: 60vw;
+}
+
+#right {
+  width: 30vw;
+  text-align: left;
+}
+
+TextField {
+  width: 200px;
+}
+
+select {
+  width: 200px;
+}
+
+.card {
+  margin: 1em;
+  padding: 1em;
+}
