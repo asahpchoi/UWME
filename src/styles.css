@@ -15,11 +15,13 @@
 
 #left {
   width: 60vw;
+  padding: 1em;
 }
 
 #right {
   width: 30vw;
   text-align: left;
+  padding: 1em;
 }
 
 TextField {

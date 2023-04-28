@@ -17,6 +17,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Button } from "@mui/material";
+import { DateField } from "@mui/x-date-pickers/DateField";
 
 export default function App() {
   const [enquiryId, setEnquiryId] = useState(null);
@@ -81,6 +82,12 @@ export default function App() {
     body["answers"][key] = value;
     updateAnswer(body);
   };
+  const updateDate = async (key, value) => {
+    let body = { answers: {} };
+    body["answers"][key] = value;
+    console.log({ body });
+    updateAnswer(body);
+  };
 
   async function updateAnswer(body) {
     const url = `https://uat-apps.fwd.com.ph/UWWSSIT/postEnquiry/${enquiryId}`;
@@ -101,7 +108,7 @@ export default function App() {
 
       axios.get(url).then((x) => {
         autoOptions[listName] = x.data.options;
-        console.log(autoOptions[listName]);
+
         setAutoOptions(autoOptions);
       });
     }
@@ -129,8 +136,6 @@ export default function App() {
     let body = { answers: {} };
     body["answers"][name] = "";
     updateAnswer(body);
-
-    console.log({ body });
   }
 
   const showOptions = (
@@ -179,7 +184,16 @@ export default function App() {
                 defaultValue={object.answers[0]}
               ></TextField>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker />
+                <DateField
+                  format="MM/DD/YYYY"
+                  name={id}
+                  onChange={(newValue) => {
+                    updateDate(id, newValue);
+                  }}
+                  label={name}
+                  fullWidth
+                  defaultValue={object.answers[0]}
+                />
               </LocalizationProvider>
             </>
           );
