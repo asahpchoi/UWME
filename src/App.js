@@ -12,9 +12,11 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import Alert from "@mui/material/Alert";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Autocomplete from "@mui/material/Autocomplete";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Button } from "@mui/material";
 
 export default function App() {
   const [enquiryId, setEnquiryId] = useState(null);
@@ -123,6 +125,14 @@ export default function App() {
     );
   }
 
+  function clearAnswer(name) {
+    let body = { answers: {} };
+    body["answers"][name] = "";
+    updateAnswer(body);
+
+    console.log({ body });
+  }
+
   const showOptions = (
     id,
     options,
@@ -135,7 +145,14 @@ export default function App() {
     if (isReadonly) {
       return (
         <>
-          {name}: <b>{object.answers[0]}</b>
+          {name}: <b>{object.answers[0]}</b>{" "}
+          <Button
+            onClick={() => {
+              clearAnswer(id);
+            }}
+          >
+            Clear
+          </Button>
         </>
       );
     } else {
@@ -153,13 +170,18 @@ export default function App() {
 
         case "PAST_DATE":
           return (
-            <TextField
-              name={id}
-              onKeyPress={updateText}
-              label={name}
-              fullWidth
-              defaultValue={object.answers[0]}
-            ></TextField>
+            <>
+              <TextField
+                name={id}
+                onKeyPress={updateText}
+                label={name}
+                fullWidth
+                defaultValue={object.answers[0]}
+              ></TextField>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker />
+              </LocalizationProvider>
+            </>
           );
         case "STRING":
           return (
