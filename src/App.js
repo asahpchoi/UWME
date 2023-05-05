@@ -209,6 +209,7 @@ export default function App() {
     );
     setEnquiryId(data.data.enquiryId);
     setUWME(data.data);
+    d;
   };
   useEffect(() => {
     init();
@@ -219,8 +220,9 @@ export default function App() {
         answers: {
           DE_DUP_IND: "With client ID",
           ROLE_IND: "Life Assured",
-          NATIONALITY: "HK"
-        }
+          NATIONALITY: "HK",
+          CRS_IND: "Yes",
+        },
       };
       updateAnswer(initData);
     }
